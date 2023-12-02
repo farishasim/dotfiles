@@ -1,0 +1,89 @@
+[global_config]
+  extra_styling = False
+  tab_position = bottom
+  sticky = True
+  title_transmit_fg_color = "#0e0f0e"
+  title_transmit_bg_color = "#dfb064"
+  title_receive_fg_color = "#bbd0d3"
+  title_receive_bg_color = "#bf3f3f"
+  title_inactive_fg_color = "#bbd0d3"
+  title_inactive_bg_color = "#416265"
+  inactive_color_offset = 1.0
+  title_use_system_font = False
+  title_font = UbuntuMono NF 11
+[keybindings]
+[profiles]
+  [[default]]
+    audible_bell = True
+    background_color = "#0e0f0f"
+    background_darkness = 0.86
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    font = UbuntuMono NF 12
+    foreground_color = "#bbd0d3"
+    show_titlebar = False
+    scrollbar_position = hidden
+    palette = "#0e0f0e:#d75f5f:#dfb064:#998f6c:#649499:#5e9577:#4a7074:#c1cfc5:#879089:#934b4b:#dfb064:#998f6c:#527d81:#5e9577:#527d81:#c1cfc5"
+    use_system_font = False
+  [[default-old]]
+    audible_bell = True
+    background_color = "#111f22"
+    background_darkness = 0.85
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    foreground_color = "#bbd0d3"
+    palette = "#2e3436:#cc0000:#e36617:#c4a000:#4e9a06:#75507b:#3465a4:#d3d7cf:#555753:#ef2929:#e7872f:#fce94f:#8ae234:#ad7fa8:#729fcf:#eeeeec"
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+  [[starter]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 0:27
+      maximised = True
+      fullscreen = False
+      size = 1920, 1017
+      title = /bin/bash
+      last_active_term = fd226e7e-0854-4ca5-ac71-acfd974d5e50
+      last_active_window = True
+    [[[child1]]]
+      type = HPaned
+      parent = child0
+      order = 0
+      position = 1128
+      ratio = 0.5890339425587467
+    [[[terminal2]]]
+      type = Terminal
+      parent = child1
+      order = 0
+      profile = default
+      uuid = fd226e7e-0854-4ca5-ac71-acfd974d5e50
+    [[[child3]]]
+      type = VPaned
+      parent = child1
+      order = 1
+      position = 490
+      ratio = 0.4841897233201581
+    [[[terminal4]]]
+      type = Terminal
+      parent = child3
+      order = 0
+      profile = default
+      uuid = 79bb0677-a336-4422-bfb6-8ebc9c1fd525
+      command = ""
+    [[[terminal5]]]
+      type = Terminal
+      parent = child3
+      order = 1
+      profile = default
+      uuid = 9aebe950-577d-4860-8c64-ecacd5f1c3c3
+      command = htop
+[plugins]
