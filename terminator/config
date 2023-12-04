@@ -1,7 +1,7 @@
 [global_config]
+  borderless = True
   extra_styling = False
   tab_position = bottom
-  sticky = True
   title_transmit_fg_color = "#0e0f0e"
   title_transmit_bg_color = "#dfb064"
   title_receive_fg_color = "#bbd0d3"

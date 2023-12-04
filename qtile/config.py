@@ -101,7 +101,7 @@ for i in groups:
 
 layout_border = dict(
     border_normal="#4a7074", 
-    border_focus="#dfb064", 
+    border_focus="#dfb064",
     border_width=3, 
     margin=5
 )
@@ -109,6 +109,7 @@ layout_border = dict(
 layouts = [
     # layout.Columns(border_normal="#4a7074", border_focus="#dfb064", border_width=3, margin=10),
     layout.Columns(**layout_border),
+    # layout.Floating(**layout_border)
     # layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -124,7 +125,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="UbuntuMono NF Regular",
+    font="UbuntuMono Nerd Font Bold",
     fontsize=14,
     padding=2,
 )
@@ -150,30 +151,7 @@ screens = [
             border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             border_color=["dfb064", "000000", "dfb064", "000000"],  # Borders are magenta
             background="#0e0f0f",
-            # opacity=0.8,
-        ),
-        # Set static wallpaper
-    ),
-    Screen(
-        wallpaper="/home/hasim/.wallpaper/desert.jpg",
-        wallpaper_mode="fill",
-        top=bar.Bar(
-            [
-                # widget.CurrentLayout(),
-                widget.GroupBox(),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
-            ],
-            24,
-            border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            border_color=["dfb064", "000000", "dfb064", "000000"],  # Borders are magenta
-            background="#0e0f0f",
-            # opacity=0.8,
+            opacity=0.8,
         ),
         # Set static wallpaper
     ),
@@ -182,7 +160,7 @@ screens = [
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Drag(["control"], "Button1", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
