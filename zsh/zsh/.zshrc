@@ -116,4 +116,4 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
-neofetch
+neofetch --ascii_colors  4 7 1 8 8 6 --colors  2 2 5 2 5 7
