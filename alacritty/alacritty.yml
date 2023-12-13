@@ -5,35 +5,38 @@ window:
 
   opacity: 0.88
 
-colors:
-  # Default colors
-  primary:
-    background: '#0e0f0e'
-    foreground: '#bbd0d3'
- 
-  # Normal colors
-  normal:
-    black:   '#0e0f0e'
-    red:     '#d75f5f'
-    green:   '#dfb064'
-    yellow:  '#ffe2a9'
-    blue:    '#71abb7'
-    magenta: '#5e9577'
-    cyan:    '#4a7074'
-    white:   '#c1cfc5'
- 
-  # Bright colors
-  bright:
-    black:   '#879089'
-    red:     '#934b4b'
-    green:   '#dfb064'
-    yellow:  '#998f6c'
-    blue:    '#498693'
-    magenta: '#5e9577'
-    cyan:    '#527d81'
-    white:   '#c1cfc5'
+schemes:
+  Desert-Wanderer: &Desert-Wanderer
+    # Primary Color
+    primary:
+      background: '#0e0f0e'
+      foreground: '#bbd0d3'
+  
+    # Normal colors
+    normal:
+      black:   '#0e0f0e'
+      red:     '#d75f5f'
+      green:   '#dfb064'
+      yellow:  '#ffe2a9'
+      blue:    '#71abb7'
+      magenta: '#5e9577'
+      cyan:    '#4a7074'
+      white:   '#c1cfc5'
+  
+    # Bright colors
+    bright:
+      black:   '#879089'
+      red:     '#934b4b'
+      green:   '#dfb064'
+      yellow:  '#998f6c'
+      blue:    '#498693'
+      magenta: '#5e9577'
+      cyan:    '#527d81'
+      white:   '#c1cfc5' 
 
-  draw_bold_text_with_bright_colors: true
+colors: *Desert-Wanderer
+
+draw_bold_text_with_bright_colors: true
 
 font:
   size: 12.0
