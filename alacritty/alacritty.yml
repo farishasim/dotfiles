@@ -20,7 +20,7 @@ schemes:
       yellow:  '#ffe2a9'
       blue:    '#71abb7'
       magenta: '#5e9577'
-      cyan:    '#4a7074'
+      cyan:    '#527d81'
       white:   '#c1cfc5'
   
     # Bright colors
@@ -31,7 +31,7 @@ schemes:
       yellow:  '#998f6c'
       blue:    '#498693'
       magenta: '#5e9577'
-      cyan:    '#527d81'
+      cyan:    '#4a7074'
       white:   '#c1cfc5' 
 
   Desert-Wanderer-Neo: &Desert-Wanderer-Neo
@@ -62,7 +62,7 @@ schemes:
 
 colors: *Desert-Wanderer
 
-draw_bold_text_with_bright_colors: true
+# draw_bold_text_with_bright_colors: true
 
 font:
   size: 12.0
