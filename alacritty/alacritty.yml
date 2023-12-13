@@ -34,6 +34,32 @@ schemes:
       cyan:    '#527d81'
       white:   '#c1cfc5' 
 
+  Desert-Wanderer-Neo: &Desert-Wanderer-Neo
+    primary:
+      background: '#0e0f0e'
+      foreground: '#c1cfc5'
+
+    normal:
+      black:   '#0e0f0e'
+      red:     '#934b4b'
+      green:   '#dfb064'
+      yellow:  '#998f6c'
+      blue:    '#5b90ab'
+      magenta: '#5e9577'
+      cyan:    '#649499'
+      white:   '#c1cfc5'
+  
+    # Bright colors
+    bright:
+      black:   '#879089'
+      red:     '#d75f5f'
+      green:   '#dfb064'
+      yellow:  '#998f6c'
+      blue:    '#3e6f87'
+      magenta: '#5e9577'
+      cyan:    '#527d81'
+      white:   '#c1cfc5' 
+
 colors: *Desert-Wanderer
 
 draw_bold_text_with_bright_colors: true
