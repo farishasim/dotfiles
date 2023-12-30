@@ -30,7 +30,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = guess_terminal("terminator")
+terminal = guess_terminal("alacritty")
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -71,6 +71,9 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+
+    # Extras
+    Key([mod], "m", lazy.spawn("/home/hasim/.config/qtile/external_monitor_only.sh")),
 ]
 
 groups = [Group(i) for i in "123456789"]
