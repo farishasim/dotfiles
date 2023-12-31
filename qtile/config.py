@@ -54,15 +54,15 @@ def window_to_prev_group(qtile):
     i = qtile.groups.index(qtile.current_group)
     if qtile.current_window is not None and i != 0:
         qtile.current_window.togroup(qtile.groups[i - 1].name)
-        qtile.current_screen.toggle_group(qtile.groups[i - 1])
+        qtile.groups[i-1].toscreen()
 
 @lazy.function
 def window_to_next_group(qtile):
     i = qtile.groups.index(qtile.current_group)
     if qtile.current_window is not None and i != 6:
         qtile.current_window.togroup(qtile.groups[i + 1].name)
-        qtile.current_screen.toggle_group(qtile.groups[i + 1])
-
+        # qtile.current_screen.toggle_group(qtile.groups[i + 1])
+        qtile.groups[i+1].toscreen()
 
 # ----------------------------
 #          Key Binding
