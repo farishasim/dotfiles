@@ -24,35 +24,71 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from libqtile import bar, layout, widget
+import os
+import subprocess
+from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+# ----------------------------
+#          Variable
+# ----------------------------
+
 mod = "mod4"
 terminal = guess_terminal("alacritty")
+browser = "firefox"
+
+# ----------------------------
+#         Util function
+# ----------------------------
+
+# TODO ...
+
+# ----------------------------
+#         Util function
+# ----------------------------
+
+@lazy.function
+def window_to_prev_group(qtile):
+    i = qtile.groups.index(qtile.current_group)
+    if qtile.current_window is not None and i != 0:
+        qtile.current_window.togroup(qtile.groups[i - 1].name)
+        qtile.current_screen.toggle_group(qtile.groups[i - 1])
+
+@lazy.function
+def window_to_next_group(qtile):
+    i = qtile.groups.index(qtile.current_group)
+    if qtile.current_window is not None and i != 6:
+        qtile.current_window.togroup(qtile.groups[i + 1].name)
+        qtile.current_screen.toggle_group(qtile.groups[i + 1])
+
+
+# ----------------------------
+#          Key Binding
+# ----------------------------
 
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([mod], "Left", lazy.layout.left(), desc="Move focus to left"),
+    Key([mod], "Right", lazy.layout.right(), desc="Move focus to right"),
+    Key([mod], "Down", lazy.layout.down(), desc="Move focus down"),
+    Key([mod], "Up", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, "shift"], "Left", lazy.layout.shuffle_left(), desc="Move window to the left"),
+    Key([mod, "shift"], "Right", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key([mod, "shift"], "Down", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key([mod, "shift"], "Up", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod, "control"], "Left", lazy.layout.grow_left(), desc="Grow window to the left"),
+    Key([mod, "control"], "Right", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key([mod, "control"], "Down", lazy.layout.grow_down(), desc="Grow window down"),
+    Key([mod, "control"], "Up", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -67,14 +103,27 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod], "x", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
-    # Extras
+    # Workspace Navigation
+    Key([mod, "mod1"], "Left", lazy.screen.prev_group(), desc="Move to left group"),
+    Key([mod, "mod1"], "Right", lazy.screen.next_group(), desc="Move to right group"),
+    # Move window to another group
+    Key([mod, "mod1", "shift"], "Left", window_to_prev_group(), desc="Move window to previous group"),
+    Key([mod, "mod1", "shift"], "Right", window_to_next_group(), desc="Move window to next group"),
+
+    # Apps
     Key([mod], "m", lazy.spawn("/home/hasim/.config/qtile/external_monitor_only.sh")),
+    Key([mod], "c", lazy.spawn("code")),
+    Key([mod], "b", lazy.spawn(browser)),
 ]
+
+# ----------------------------
+#          Group
+# ----------------------------
 
 groups = [Group(i) for i in "123456789"]
 
@@ -102,6 +151,10 @@ for i in groups:
         ]
     )
 
+# ----------------------------
+#          Layout
+# ----------------------------
+
 layout_border = dict(
     border_normal="#0e0f0f", 
     border_focus="#dfb064",
@@ -127,12 +180,20 @@ layouts = [
     # layout.Zoomy(),
 ]
 
+# ----------------------------
+#          Widget
+# ----------------------------
+
 widget_defaults = dict(
     font="UbuntuMono Nerd Font Bold",
     fontsize=14,
     padding=2,
 )
 extension_defaults = widget_defaults.copy()
+
+# ----------------------------
+#          Screen
+# ----------------------------
 
 screens = [
     Screen(
@@ -144,17 +205,17 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                # widget.TextBox("default config", name="default"),
+                # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 # widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                 widget.QuickExit(),
             ],
             24,
-            border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+            border_width=[1, 0, 1, 0],  # Draw top and bottom borders
             border_color=["dfb064", "000000", "dfb064", "000000"],  # Borders are magenta
             background="#0e0f0f",
-            opacity=0.8,
+            opacity=0.7,
             margin=[0, 0, layout_border['margin'], 0]
         ),
         bottom=bar.Gap(layout_border['margin']),
@@ -164,12 +225,21 @@ screens = [
     ),
 ]
 
+# ----------------------------
+#           Mouse
+# ----------------------------
+
+
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
     Drag(["control"], "Button1", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
+
+# ----------------------------
+#          Others
+# ----------------------------
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
@@ -199,6 +269,16 @@ auto_minimize = True
 
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
+
+# ----------------------------
+#          Hook
+# ----------------------------
+
+@hook.subscribe.startup_once
+def start_once():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
+
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
