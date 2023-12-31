@@ -103,10 +103,10 @@ for i in groups:
     )
 
 layout_border = dict(
-    border_normal="#4a7074", 
+    border_normal="#0e0f0f", 
     border_focus="#dfb064",
-    border_width=3, 
-    margin=5
+    border_width=1, 
+    margin=8
 )
 
 layouts = [
@@ -155,7 +155,11 @@ screens = [
             border_color=["dfb064", "000000", "dfb064", "000000"],  # Borders are magenta
             background="#0e0f0f",
             opacity=0.8,
+            margin=[0, 0, layout_border['margin'], 0]
         ),
+        bottom=bar.Gap(layout_border['margin']),
+        left=bar.Gap(layout_border['margin']),
+        right=bar.Gap(layout_border['margin']),
         # Set static wallpaper
     ),
 ]
