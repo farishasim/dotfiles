@@ -195,6 +195,13 @@ extension_defaults = widget_defaults.copy()
 #          Screen
 # ----------------------------
 
+separator = widget.Sep(
+    linewidth=2,
+    foreground="dfb064",
+    size_percent=65,
+    padding=15
+)
+
 screens = [
     Screen(
         wallpaper="/home/hasim/.wallpaper/desert.jpg",
@@ -202,20 +209,43 @@ screens = [
         top=bar.Bar(
             [
                 # widget.CurrentLayout(),
-                widget.GroupBox(),
+                widget.GroupBox(
+                    # highlight_color=["000000", "dfb064"],
+                    # highlight_color="dfb064",
+                    highlight_method="text",
+                    this_current_screen_border="dfb064",
+                    # this_screen_border="dfb064",
+                ),
                 widget.Prompt(),
-                widget.WindowName(),
+                widget.Spacer(),
+                widget.Net(
+                    format='{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}'
+                ),
+                separator,
                 # widget.TextBox("default config", name="default"),
                 # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 # widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
+                widget.PulseVolume(
+                    volume_down_command="pactl set-sink-volume @DEFAULT_SINK@ -10%",
+                    volume_up_command="pactl set-sink-volume @DEFAULT_SINK@ +10%",
+                    # emoji=True,
+                    fmt="🔊 {}",
+                ),
+                separator,
+                widget.Clock(
+                    format="%Y-%m-%d %a %I:%M",
+                ),
+                separator,
+                widget.QuickExit(
+                    default_text="[🔴]",
+                    countdown_format="[{}s]",
+                ),
             ],
             24,
             border_width=[1, 0, 1, 0],  # Draw top and bottom borders
             border_color=["dfb064", "000000", "dfb064", "000000"],  # Borders are magenta
             background="#0e0f0f",
-            opacity=0.7,
+            opacity=0.75,
             margin=[0, 0, layout_border['margin'], 0]
         ),
         bottom=bar.Gap(layout_border['margin']),
