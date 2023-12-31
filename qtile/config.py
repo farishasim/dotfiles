@@ -40,7 +40,7 @@ terminal = guess_terminal("alacritty")
 browser = "firefox"
 
 # ----------------------------
-#         Util function
+#           Colors
 # ----------------------------
 
 # TODO ...
