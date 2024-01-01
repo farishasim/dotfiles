@@ -128,6 +128,8 @@ keys = [
     Key([mod], "m", lazy.spawn("/home/hasim/.config/qtile/external_monitor_only.sh")),
     Key([mod], "c", lazy.spawn("code")),
     Key([mod], "b", lazy.spawn(browser)),
+    Key([mod], "a", lazy.spawn("rofi -show drun")),
+    Key([mod], "w", lazy.spawn("rofi -show window")),
 ]
 
 # ----------------------------

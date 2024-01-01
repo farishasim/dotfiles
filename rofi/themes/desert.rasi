@@ -18,7 +18,7 @@
     desert5:    #5e9577; //     positive
     desert6:    #d75f5f; //     negative
 
-    background-color:   transparent;
+    background-color:   @background;
     text-color:         @foreground;
     accent-color:       @desert1;
     second-color:       @desert2;
@@ -48,7 +48,7 @@ prompt, entry, element-text, element-icon {
 }
 
 prompt {
-    text-color: @accent-color;
+    text-color: @second-color;
 }
 
 listview {
@@ -62,29 +62,29 @@ element {
     spacing:    8px;
 }
 
-element normal urgent {
+element urgent {
     text-color: @desert6;
 }
 
-element normal active {
-    text-color: @desert4;
+element active {
+    text-color: @desert3;
 }
 
 element selected {
-    text-color: @accent-color;
-}
-
-element selected normal {
     border-color:   @accent-color;
     border:         1;
 }
 
+element selected normal {
+    text-color: @accent-color;
+}
+
 element selected urgent {
-    background-color:   @desert6;
+    text-color: @desert6;
 }
 
 element selected active {
-    background-color:   @desert4;
+    text-color: @desert3;
 }
 
 element-icon {
