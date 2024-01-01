@@ -48,8 +48,8 @@ colors = dict(
     foreground= "bbd0d3",
     primary=    "dfb064",
     secondary=  "71abb7",
-    info=       "ffe2a9",
-    warning=    "498693",
+    info=       "498693",
+    warning=    "ffe2a9",
     positive=   "5e9577",
     negative=   "d75f5f",
 )
@@ -211,7 +211,15 @@ separator = widget.Sep(
 
 widgets = [
     # LEFT SIDE
-    widget.TextBox(" ", foreground=colors["primary"], fontsize=18, padding=8),
+    # Rofi app launcher
+    widget.LaunchBar(
+        test_only=True,
+        foreground=colors["primary"], fontsize=18, padding=8,
+        progs=[
+            (" ", "rofi -show drun", "launch applications")
+        ]
+    ),
+    # Activities
     widget.GroupBox(
         # highlight_color=["000000", colors["primary"]],
         # highlight_color=colors["primary"],
