@@ -134,7 +134,7 @@ keys = [
 #          Group
 # ----------------------------
 
-groups = [Group(i) for i in "123456789"]
+groups = [Group(i) for i in "12345"]
 
 for i in groups:
     keys.extend(
@@ -216,7 +216,7 @@ widgets = [
         # highlight_color=["000000", colors["primary"]],
         # highlight_color=colors["primary"],
         highlight_method="text",
-        this_current_screen_border=colors["primary"],
+        this_current_screen_border=colors["secondary"],
         # this_screen_border=colors["primary"],
         padding=1,
     ),
