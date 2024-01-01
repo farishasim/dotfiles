@@ -43,7 +43,16 @@ browser = "firefox"
 #           Colors
 # ----------------------------
 
-# TODO ...
+colors = dict(
+    background= "0e0f0f",
+    foreground= "bbd0d3",
+    primary=    "dfb064",
+    secondary=  "71abb7",
+    info=       "ffe2a9",
+    warning=    "498693",
+    positive=   "5e9577",
+    negative=   "d75f5f",
+)
 
 # ----------------------------
 #         Util function
@@ -156,14 +165,14 @@ for i in groups:
 # ----------------------------
 
 layout_border = dict(
-    border_normal="#0e0f0f", 
-    border_focus="#dfb064",
+    border_normal=colors["background"], 
+    border_focus=colors["primary"],
     border_width=1, 
-    margin=8
+    margin=6
 )
 
 layouts = [
-    # layout.Columns(border_normal="#4a7074", border_focus="#dfb064", border_width=3, margin=10),
+    # layout.Columns(border_normal="#4a7074", border_focus=colors["primary"], border_width=3, margin=10),
     layout.Columns(**layout_border),
     # layout.Floating(**layout_border)
     # layout.Max(),
@@ -187,66 +196,88 @@ layouts = [
 widget_defaults = dict(
     font="UbuntuMono Nerd Font Bold",
     fontsize=14,
-    padding=2,
+    padding=0,
+    # foreground=colors["foreground"],
 )
+
 extension_defaults = widget_defaults.copy()
+
+separator = widget.Sep(
+    linewidth=2,
+    foreground=colors["primary"],
+    size_percent=65,
+    padding=20,
+)
+
+widgets = [
+    # LEFT SIDE
+    widget.TextBox(" ", foreground=colors["primary"], fontsize=18, padding=8),
+    widget.GroupBox(
+        # highlight_color=["000000", colors["primary"]],
+        # highlight_color=colors["primary"],
+        highlight_method="text",
+        this_current_screen_border=colors["primary"],
+        # this_screen_border=colors["primary"],
+        padding=1,
+    ),
+    widget.Prompt(),
+    widget.Spacer(),
+    
+    # RIGHT SIDE
+    # Network
+    # widget.TextBox("NET ", foreground=colors["secondary"]),
+    # widget.Net(
+    #     format='{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}'
+    # ),
+    # separator,
+    # Memory
+    widget.TextBox("DISK ", foreground=colors["secondary"]),
+    widget.DF(
+        visible_on_warn=False,
+    ),
+    separator,
+    # Memory
+    widget.TextBox("MEM ", foreground=colors["secondary"]),
+    widget.Memory(
+        format='{MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}',
+        measure_mem='G'
+    ),
+    separator,
+    # Volume
+    widget.TextBox("  ", foreground=colors["secondary"]),
+    widget.PulseVolume(
+        volume_down_command="pactl set-sink-volume @DEFAULT_SINK@ -10%",
+        volume_up_command="pactl set-sink-volume @DEFAULT_SINK@ +10%",
+        # emoji=True,
+        fmt="{}",
+    ),
+    separator,
+    widget.Clock(
+        format="%Y-%m-%d %a %I:%M",
+    ),
+    widget.QuickExit(
+        default_text="    ",
+        countdown_format=" [{}s]",
+        foreground=colors["negative"],
+    ),
+] 
 
 # ----------------------------
 #          Screen
 # ----------------------------
-
-separator = widget.Sep(
-    linewidth=2,
-    foreground="dfb064",
-    size_percent=65,
-    padding=15
-)
 
 screens = [
     Screen(
         wallpaper="/home/hasim/.wallpaper/desert.jpg",
         wallpaper_mode="fill",
         top=bar.Bar(
-            [
-                # widget.CurrentLayout(),
-                widget.GroupBox(
-                    # highlight_color=["000000", "dfb064"],
-                    # highlight_color="dfb064",
-                    highlight_method="text",
-                    this_current_screen_border="dfb064",
-                    # this_screen_border="dfb064",
-                ),
-                widget.Prompt(),
-                widget.Spacer(),
-                widget.Net(
-                    format='{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}'
-                ),
-                separator,
-                # widget.TextBox("default config", name="default"),
-                # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # widget.Systray(),
-                widget.PulseVolume(
-                    volume_down_command="pactl set-sink-volume @DEFAULT_SINK@ -10%",
-                    volume_up_command="pactl set-sink-volume @DEFAULT_SINK@ +10%",
-                    # emoji=True,
-                    fmt="🔊 {}",
-                ),
-                separator,
-                widget.Clock(
-                    format="%Y-%m-%d %a %I:%M",
-                ),
-                separator,
-                widget.QuickExit(
-                    default_text="[🔴]",
-                    countdown_format="[{}s]",
-                ),
-            ],
-            24,
-            border_width=[1, 0, 1, 0],  # Draw top and bottom borders
-            border_color=["dfb064", "000000", "dfb064", "000000"],  # Borders are magenta
-            background="#0e0f0f",
+            widgets=widgets,
+            size=24,
+            border_width=[1, 1, 1, 1],  # Draw top and bottom borders
+            border_color=[colors["primary"] for i in range(4)],  # Borders are magenta
+            background=colors["background"],
             opacity=0.75,
-            margin=[0, 0, layout_border['margin'], 0]
+            margin=[layout_border['margin']*i for i in [1,1,1,1]]
         ),
         bottom=bar.Gap(layout_border['margin']),
         left=bar.Gap(layout_border['margin']),
@@ -258,7 +289,6 @@ screens = [
 # ----------------------------
 #           Mouse
 # ----------------------------
-
 
 # Drag floating layouts.
 mouse = [
