@@ -35,7 +35,8 @@ from libqtile.utils import guess_terminal
 #          Variable
 # ----------------------------
 
-mod = "mod4"
+mod = "mod4"  # super key
+alt = "mod1"
 terminal = guess_terminal("alacritty")
 browser = "firefox"
 
@@ -118,11 +119,11 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
     # Workspace Navigation
-    Key([mod, "mod1"], "Left", lazy.screen.prev_group(), desc="Move to left group"),
-    Key([mod, "mod1"], "Right", lazy.screen.next_group(), desc="Move to right group"),
+    Key([mod, alt], "Left", lazy.screen.prev_group(), desc="Move to left group"),
+    Key([mod, alt], "Right", lazy.screen.next_group(), desc="Move to right group"),
     # Move window to another group
-    Key([mod, "mod1", "shift"], "Left", window_to_prev_group(), desc="Move window to previous group"),
-    Key([mod, "mod1", "shift"], "Right", window_to_next_group(), desc="Move window to next group"),
+    Key([mod, alt, "shift"], "Left", window_to_prev_group(), desc="Move window to previous group"),
+    Key([mod, alt, "shift"], "Right", window_to_next_group(), desc="Move window to next group"),
 
     # Apps
     Key([mod], "m", lazy.spawn("/home/hasim/.config/qtile/external_monitor_only.sh")),
@@ -237,7 +238,7 @@ widgets = [
     # MIDDLE SIDE
     widget.TextBox("  ", foreground=colors["secondary"]),
     widget.Clock(
-        format="%I:%M  ",
+        format="%H:%M  ",
     ),
     widget.TextBox("   ", foreground=colors["secondary"]),
     widget.Clock(
@@ -246,12 +247,17 @@ widgets = [
 
     widget.Spacer(),
     # RIGHT SIDE
-    # Network
-    # widget.TextBox("NET ", foreground=colors["secondary"]),
-    # widget.Net(
-    #     format='{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}'
-    # ),
-    # separator,
+
+    # Bluetooth
+    widget.LaunchBar(
+        test_only=True,
+        foreground=colors["secondary"], 
+        fontsize=widget_defaults["fontsize"]*1.2,
+        progs=[
+            ("󰂯", "rofi-bluetooth", "launch applications")
+        ]
+    ),
+    separator,
     # Memory
     widget.TextBox("  ", foreground=colors["secondary"]),
     widget.DF(
@@ -260,9 +266,9 @@ widgets = [
     ),
     separator,
     # Memory
-    widget.TextBox("󰍛  ", foreground=colors["secondary"]),
+    widget.TextBox("󰍛 ", foreground=colors["secondary"], fontsize=widget_defaults["fontsize"]*1.2),
     widget.Memory(
-        format='{MemPercent:.1f}%',
+        format=' {MemPercent:.1f}%',
         measure_mem='G'
     ),
     separator,
@@ -275,9 +281,15 @@ widgets = [
         fmt="{}",
     ),
     separator,
+    # TODO: TimerLaunchBar
     widget.QuickExit(
-        default_text="    ",
-        countdown_format="[{}s] ",
+        default_text="󰗽  ",
+        countdown_format="{}s ",
+        foreground=colors["secondary"],
+    ),
+    widget.QuickExit(
+        default_text="  ",
+        countdown_format="{}s ",
         foreground=colors["negative"],
     ),
 ] 
@@ -313,7 +325,7 @@ screens = [
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag(["control"], "Button1", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Drag([mod], "Button2", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
