@@ -236,13 +236,13 @@ widgets = [
     widget.Spacer(),
     
     # MIDDLE SIDE
-    widget.TextBox("  ", foreground=colors["secondary"]),
-    widget.Clock(
-        format="%H:%M  ",
-    ),
-    widget.TextBox("   ", foreground=colors["secondary"]),
+    widget.TextBox("    ", foreground=colors["secondary"]),
     widget.Clock(
         format="%a, %d %b %Y",
+    ),
+    widget.TextBox("    ", foreground=colors["secondary"]),
+    widget.Clock(
+        format="%H:%M ",
     ),
 
     widget.Spacer(),
@@ -281,7 +281,15 @@ widgets = [
         fmt="{}",
     ),
     separator,
-    # TODO: TimerLaunchBar
+    # TODO: QuickLaunch
+    
+    widget.LaunchBar(
+        test_only=True,
+        foreground=colors["secondary"], 
+        progs=[
+            ("  ", "betterlockscreen -l dimblur", "lock screen")
+        ]
+    ),
     widget.QuickExit(
         default_text="󰗽  ",
         countdown_format="{}s ",
