@@ -231,8 +231,20 @@ widgets = [
         padding=1,
     ),
     widget.Prompt(),
+
     widget.Spacer(),
     
+    # MIDDLE SIDE
+    widget.TextBox("  ", foreground=colors["secondary"]),
+    widget.Clock(
+        format="%I:%M  ",
+    ),
+    widget.TextBox("   ", foreground=colors["secondary"]),
+    widget.Clock(
+        format="%a, %d %b %Y",
+    ),
+
+    widget.Spacer(),
     # RIGHT SIDE
     # Network
     # widget.TextBox("NET ", foreground=colors["secondary"]),
@@ -241,15 +253,16 @@ widgets = [
     # ),
     # separator,
     # Memory
-    widget.TextBox("DISK ", foreground=colors["secondary"]),
+    widget.TextBox("  ", foreground=colors["secondary"]),
     widget.DF(
         visible_on_warn=False,
+        format='{r:.1f}%'
     ),
     separator,
     # Memory
-    widget.TextBox("MEM ", foreground=colors["secondary"]),
+    widget.TextBox("󰍛  ", foreground=colors["secondary"]),
     widget.Memory(
-        format='{MemUsed:.1f}{mm}/{MemTotal:.1f}{mm}',
+        format='{MemPercent:.1f}%',
         measure_mem='G'
     ),
     separator,
@@ -262,12 +275,9 @@ widgets = [
         fmt="{}",
     ),
     separator,
-    widget.Clock(
-        format="%Y-%m-%d %a %I:%M",
-    ),
     widget.QuickExit(
-        default_text="    ",
-        countdown_format=" [{}s]",
+        default_text="    ",
+        countdown_format="[{}s] ",
         foreground=colors["negative"],
     ),
 ] 
@@ -348,7 +358,6 @@ wl_input_rules = None
 def start_once():
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
-
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
