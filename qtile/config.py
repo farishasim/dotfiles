@@ -31,6 +31,8 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+import widgets as mywidgets
+
 # ----------------------------
 #          Variable
 # ----------------------------
@@ -287,7 +289,7 @@ widgets = [
         test_only=True,
         foreground=colors["secondary"], 
         progs=[
-            ("  ", "betterlockscreen -l dimblur", "lock screen")
+            ("  ", "xset dpms force standby")
         ]
     ),
     widget.QuickExit(
@@ -295,9 +297,16 @@ widgets = [
         countdown_format="{}s ",
         foreground=colors["secondary"],
     ),
-    widget.QuickExit(
+    mywidgets.QuickLaunch(
+        default_text="  ",
+        countdown_format="{}s ",
+        launch_cmd="reboot",
+        foreground=colors["secondary"],
+    ),
+    mywidgets.QuickLaunch(
         default_text="  ",
         countdown_format="{}s ",
+        launch_cmd="poweroff",
         foreground=colors["negative"],
     ),
 ] 
