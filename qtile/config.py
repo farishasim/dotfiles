@@ -26,6 +26,8 @@
 
 import os
 import subprocess
+from datetime import datetime
+
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
@@ -133,6 +135,10 @@ keys = [
     Key([mod], "b", lazy.spawn(browser)),
     Key([mod], "a", lazy.spawn("rofi -show drun")),
     Key([mod], "w", lazy.spawn("rofi -show window")),
+    Key([mod], "p", lazy.spawn(
+        f"import -window root Pictures/Screenshot_{datetime.strftime(datetime.now(), '%Y-%m-%d-%H-%M-%S-%f')}.png")
+    )  # Screenshot
+
 ]
 
 # ----------------------------
@@ -219,7 +225,8 @@ widgets = [
     # Rofi app launcher
     widget.LaunchBar(
         test_only=True,
-        foreground=colors["primary"], fontsize=18, padding=8,
+        foreground=colors["primary"], 
+        fontsize=widget_defaults["fontsize"]*1.28, padding=8,
         progs=[
             (" ", "rofi -show drun", "launch applications")
         ]
