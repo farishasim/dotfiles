@@ -1,4 +1,4 @@
-### Install Qtile on Ubuntu
+### Install Qtile on Ubuntu 20.04
 
 ```
 pip install xcffib==0.12.1
