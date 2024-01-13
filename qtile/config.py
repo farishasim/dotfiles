@@ -44,6 +44,9 @@ alt = "mod1"
 terminal = guess_terminal("alacritty")
 browser = "firefox"
 
+# when using virtualbox:
+os.environ["LIBGL_ALWAYS_SOFTWARE"] = "true"
+
 # ----------------------------
 #           Colors
 # ----------------------------
@@ -324,7 +327,7 @@ widgets = [
 
 screens = [
     Screen(
-        wallpaper="/home/hasim/.wallpaper/desert.jpg",
+        wallpaper="/home/hasim/.config/qtile/bg/desert.jpg",
         wallpaper_mode="fill",
         top=bar.Bar(
             widgets=widgets,
