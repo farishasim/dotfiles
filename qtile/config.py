@@ -224,11 +224,11 @@ widgets = [
     # LEFT SIDE
     # Rofi app launcher
     widget.LaunchBar(
-        test_only=True,
         foreground=colors["primary"], 
         fontsize=widget_defaults["fontsize"]*1.28, padding=8,
+        icon_size=widget_defaults["fontsize"]*1.3, padding_y=-1,
         progs=[
-            (" ", "rofi -show drun", "launch applications")
+            ("/home/hasim/.config/qtile/logo1.png", "rofi -show drun", "launch applications")
         ]
     ),
     # Activities
@@ -259,7 +259,6 @@ widgets = [
 
     # Bluetooth
     widget.LaunchBar(
-        test_only=True,
         foreground=colors["secondary"], 
         fontsize=widget_defaults["fontsize"]*1.2,
         progs=[
@@ -293,7 +292,6 @@ widgets = [
     # TODO: QuickLaunch
     
     widget.LaunchBar(
-        test_only=True,
         foreground=colors["secondary"], 
         progs=[
             ("  ", "xset dpms force standby")
