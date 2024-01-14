@@ -44,9 +44,6 @@ alt = "mod1"
 terminal = guess_terminal("alacritty")
 browser = "firefox"
 
-# when using virtualbox:
-os.environ["LIBGL_ALWAYS_SOFTWARE"] = "true"
-
 # ----------------------------
 #           Colors
 # ----------------------------
@@ -395,8 +392,14 @@ wl_input_rules = None
 
 @hook.subscribe.startup_once
 def start_once():
+    # del os.environ["LIBGL_ALWAYS_SOFTWARE"]
+
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
+
+    # required when using virtualbox:
+    os.environ["LIBGL_ALWAYS_SOFTWARE"] = "true"
+
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
